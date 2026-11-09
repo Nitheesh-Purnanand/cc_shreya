@@ -1,0 +1,16 @@
+Good model (model-v1) run, all stages pass: https://github.com/Nitheesh-Purnanand/cc_shreya/actions/runs/42552037150
+Bad model (untrained Pythia-70M, input model=base) run, fails at quality gate: https://github.com/Nitheesh-Purnanand/cc_shreya/actions/runs/42552046162
+
+
+X main ci · 42552046162
+Triggered via workflow_dispatch about 7 minutes ago
+
+JOBS
+✓ lint in 8s (ID 128949562267)
+✓ unit-tests in 14s (ID 128949612906)
+✓ evaluate in 2m7s (ID 128949689581)
+X quality-gate in 6s (ID 128950266673)
+  ✓ Set up job
+  ✓ Run actions/checkout@v4
+  ✓ Run actions/download-artifact@v4
+quality-gate	JSON validity must be at least 95%	2026-11-09T02:41:10.8970189Z QUALITY GATE FAILED: json_validity 0.0 < 95.0

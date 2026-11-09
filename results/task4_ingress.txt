@@ -1,0 +1,23 @@
+$ curl -i -X POST http://localhost:8081/parse  (through Traefik ingress; cluster/k3d.yaml maps 8080, overridden to 8081 on this laptop)
+HTTP/1.1 200 OK
+X-Model-Version: v1
+X-Served-By: parser-77c8c6557f-wqnbz
+{"intent":"alarm_set","date":"tomorrow","time":"seven thirty","place":null}
+
+NAME                     READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES             SELECTOR
+deployment.apps/parser   2/2     2            2           28s   parser       cs3081-parser:v1   app=parser
+
+NAME                          READY   STATUS    RESTARTS   AGE   IP           NODE                  NOMINATED NODE   READINESS GATES
+pod/parser-77c8c6557f-ft2gh   1/1     Running   0          28s   10.42.0.14   k3d-cs3081-server-0   <none>           <none>
+pod/parser-77c8c6557f-wqnbz   1/1     Running   0          28s   10.42.0.13   k3d-cs3081-server-0   <none>           <none>
+
+NAME             TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE   SELECTOR
+service/parser   ClusterIP   10.43.211.66   <none>        80/TCP    28s   app=parser
+
+NAME                               CLASS     HOSTS   ADDRESS      PORTS   AGE
+ingress.networking.k8s.io/parser   traefik   *       172.19.0.3   80      28s
+
+NAME                                         REFERENCE           TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/parser   Deployment/parser   cpu: <unknown>/70%   1         2         2          28s
+
+{"limits":{"cpu":"1","memory":"1Gi"},"requests":{"cpu":"500m","memory":"512Mi"}}

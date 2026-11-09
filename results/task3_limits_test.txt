@@ -1,0 +1,17 @@
+$ docker run --cpus 1 --memory 1g ... cs3081-parser:v1
+NanoCpus=1000000000 Memory=1073741824
+
+--- 50 sequential POST /parse ---
+  49 200
+   1 500
+mean latency 1.078s
+
+--- example response with headers ---
+HTTP/1.1 200 OK
+x-model-version: v1
+x-served-by: 63b44c26f900
+{"intent":"weather_query","date":"tomorrow","time":null,"place":"london"}
+
+OOMKilled=false Status=running Restarts=0
+peak memory (docker stats samples): 565.4MiB
+samples:       28

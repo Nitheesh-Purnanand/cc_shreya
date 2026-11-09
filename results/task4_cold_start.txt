@@ -1,0 +1,63 @@
+=== run 1: kubectl delete pods -l app=parser (08:14:33)
+pod "parser-77c8c6557f-ft2gh" deleted from app namespace
+pod "parser-77c8c6557f-wqnbz" deleted from app namespace
+--- endpoints while loading:
+parser-77c8c6557f-ft2gh ready=false
+parser-77c8c6557f-wqnbz ready=false
+parser-77c8c6557f-7x8xq ready=false
+parser-77c8c6557f-h2kqz ready=false
+parser-77c8c6557f-7x8xq   0/1   Running       0     3s
+parser-77c8c6557f-ft2gh   1/1   Terminating   0     3m52s
+parser-77c8c6557f-h2kqz   0/1   Running       0     3s
+parser-77c8c6557f-wqnbz   1/1   Terminating   0     3m52s
+parser-77c8c6557f-7x8xq created=2026-11-09T02:44:33Z ready=2026-11-09T02:44:39Z
+    2026-11-09 02:44:34,455 INFO downloading model from s3://models/v1 (endpoint http://seaweedfs.data.svc.cluster.local:8333)
+    2026-11-09 02:44:35,718 INFO downloaded 6 files from s3://models/v1 in 1.3s
+    2026-11-09 02:44:39,323 INFO model v1 ready after 4.9s
+parser-77c8c6557f-h2kqz created=2026-11-09T02:44:33Z ready=2026-11-09T02:44:39Z
+    2026-11-09 02:44:34,455 INFO downloading model from s3://models/v1 (endpoint http://seaweedfs.data.svc.cluster.local:8333)
+    2026-11-09 02:44:35,702 INFO downloaded 6 files from s3://models/v1 in 1.2s
+    2026-11-09 02:44:39,319 INFO model v1 ready after 4.9s
+=== run 2: kubectl delete pods -l app=parser (08:14:42)
+pod "parser-77c8c6557f-7x8xq" deleted from app namespace
+pod "parser-77c8c6557f-h2kqz" deleted from app namespace
+--- endpoints while loading:
+parser-77c8c6557f-7x8xq ready=false
+parser-77c8c6557f-h2kqz ready=false
+parser-77c8c6557f-ktwh8 ready=false
+parser-77c8c6557f-27v97 ready=false
+parser-77c8c6557f-27v97   0/1   Running       0     3s
+parser-77c8c6557f-7x8xq   1/1   Terminating   0     12s
+parser-77c8c6557f-h2kqz   1/1   Terminating   0     12s
+parser-77c8c6557f-ktwh8   0/1   Running       0     3s
+parser-77c8c6557f-27v97 created=2026-11-09T02:44:42Z ready=2026-11-09T02:44:49Z
+    2026-11-09 02:44:43,430 INFO downloading model from s3://models/v1 (endpoint http://seaweedfs.data.svc.cluster.local:8333)
+    2026-11-09 02:44:44,384 INFO downloaded 6 files from s3://models/v1 in 1.0s
+    2026-11-09 02:44:48,536 INFO model v1 ready after 5.1s
+parser-77c8c6557f-ktwh8 created=2026-11-09T02:44:42Z ready=2026-11-09T02:44:49Z
+    2026-11-09 02:44:43,430 INFO downloading model from s3://models/v1 (endpoint http://seaweedfs.data.svc.cluster.local:8333)
+    2026-11-09 02:44:44,396 INFO downloaded 6 files from s3://models/v1 in 1.0s
+    2026-11-09 02:44:48,536 INFO model v1 ready after 5.1s
+=== run 3: kubectl delete pods -l app=parser (08:14:51)
+pod "parser-77c8c6557f-27v97" deleted from app namespace
+pod "parser-77c8c6557f-ktwh8" deleted from app namespace
+--- endpoints while loading:
+parser-77c8c6557f-ktwh8 ready=false
+parser-77c8c6557f-27v97 ready=false
+parser-77c8c6557f-gdfjn ready=false
+parser-77c8c6557f-86w72 ready=false
+parser-77c8c6557f-27v97   1/1   Terminating   0     12s
+parser-77c8c6557f-86w72   0/1   Running       0     3s
+parser-77c8c6557f-gdfjn   0/1   Running       0     3s
+parser-77c8c6557f-ktwh8   1/1   Terminating   0     12s
+parser-77c8c6557f-86w72 created=2026-11-09T02:44:51Z ready=2026-11-09T02:44:58Z
+    2026-11-09 02:44:52,490 INFO downloading model from s3://models/v1 (endpoint http://seaweedfs.data.svc.cluster.local:8333)
+    2026-11-09 02:44:53,579 INFO downloaded 6 files from s3://models/v1 in 1.1s
+    2026-11-09 02:44:57,588 INFO model v1 ready after 5.1s
+parser-77c8c6557f-gdfjn created=2026-11-09T02:44:51Z ready=2026-11-09T02:44:58Z
+    2026-11-09 02:44:52,490 INFO downloading model from s3://models/v1 (endpoint http://seaweedfs.data.svc.cluster.local:8333)
+    2026-11-09 02:44:53,596 INFO downloaded 6 files from s3://models/v1 in 1.1s
+    2026-11-09 02:44:57,599 INFO model v1 ready after 5.1s
+
+per-pod creation->Ready (s): [6.0, 6.0, 7.0, 7.0, 7.0, 7.0]
+per run (slowest of the 2 pods) (s): [6.0, 7.0, 7.0]  median: 7.0

@@ -1,0 +1,17 @@
+08:11:10 EVENT      NAME     REFERENCE           TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+08:11:10 ADDED      parser   Deployment/parser   cpu: <unknown>/70%   1         2         2          26s
+08:11:14 MODIFIED   parser   Deployment/parser   cpu: 0%/70%          1         2         2          30s
+08:11:29 MODIFIED   parser   Deployment/parser   cpu: 8%/70%          1         2         2          45s
+08:11:59 MODIFIED   parser   Deployment/parser   cpu: 154%/70%        1         2         2          75s
+08:12:14 MODIFIED   parser   Deployment/parser   cpu: 176%/70%        1         2         2          90s
+08:12:44 MODIFIED   parser   Deployment/parser   cpu: 175%/70%        1         2         2          2m
+08:12:59 MODIFIED   parser   Deployment/parser   cpu: 177%/70%        1         2         2          2m15s
+08:13:14 MODIFIED   parser   Deployment/parser   cpu: 175%/70%        1         2         2          2m30s
+08:13:30 MODIFIED   parser   Deployment/parser   cpu: 171%/70%        1         2         2          2m46s
+08:13:45 MODIFIED   parser   Deployment/parser   cpu: 169%/70%        1         2         2          3m1s
+08:14:00 MODIFIED   parser   Deployment/parser   cpu: 4%/70%          1         2         2          3m16s
+08:14:15 MODIFIED   parser   Deployment/parser   cpu: 0%/70%          1         2         2          3m31s
+08:14:30 MODIFIED   parser   Deployment/parser   cpu: 0%/70%          1         2         2          3m46s
+08:14:45 MODIFIED   parser   Deployment/parser   cpu: <unknown>/70%   1         2         2          4m1s
+08:15:15 MODIFIED   parser   Deployment/parser   cpu: <unknown>/70%   1         2         2          4m31s
+08:15:30 MODIFIED   parser   Deployment/parser   cpu: 0%/70%          1         2         2          4m46s

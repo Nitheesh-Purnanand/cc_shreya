@@ -1,0 +1,8 @@
+.venv/bin/python training/train.py training/config_v2.yaml
+training on 1500 records, 5 epochs
+epoch 1: loss 1.1165 (44s)
+epoch 2: loss 0.3113 (28s)
+epoch 3: loss 0.1770 (28s)
+epoch 4: loss 0.1278 (28s)
+epoch 5: loss 0.1090 (29s)
+saved model to training/out/v2 and loss to training/loss_v2.csv

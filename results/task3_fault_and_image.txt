@@ -1,0 +1,18 @@
+--- FAULT_INJECT=1 ---
+HTTP/1.1 500 Internal Server Error
+x-model-version: v1
+x-served-by: 8e059b0556e9
+{"error":"invalid_model_output"}
+
+--- /healthz, /readyz ---
+{"status":"alive"} 200
+{"status":"ready"} 200
+
+--- image ---
+cs3081-parser:v1 1.72GB
+--- no weights in image ---
+0
+--- start-up log (model downloaded from S3) ---
+2026-11-09 02:38:40,744 INFO downloading model from s3://models/v1 (endpoint http://host.docker.internal:8334)
+2026-11-09 02:38:42,274 INFO downloaded 6 files from s3://models/v1 in 1.5s
+2026-11-09 02:38:45,025 INFO model v1 ready after 4.3s
