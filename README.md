@@ -62,9 +62,10 @@ on first use (CPU-only torch).
 - Cleaning (`data/v1/counts.md`): 3,000 input = 2 (a) + 0 (b) + 20 (c) + 278 (d) + 47 duplicates + 2,653 kept.
 - Container at 1 CPU / 1 GiB: 50 sequential requests, no OOM kill, peak 565.4 MiB, image 1.72 GB.
 - Cold start (creation to Ready): 6, 7, 7 s, median 7 s.
-- Load test (2 replicas, standard command): 250 requests, 5 failures (2.0%, all
-  HTTP 500 `invalid_model_output` on 2 validation commands), p50 1,800 ms,
-  p95 3,400 ms; replicas served 122 / 123.
+- Load test (2 replicas, standard command, `results/loadtest_stats.csv`): 249
+  requests, 5 failures (2.0%, all HTTP 500 `invalid_model_output` on 2 validation
+  commands), p50 1,800 ms, p95 3,400 ms, 2.13 req/s; replicas served 122 / 123
+  of the successful requests.
 - CI: passing run https://github.com/Nitheesh-Purnanand/cc_shreya/actions/runs/42552037150,
   quality-gate failure with the untrained model https://github.com/Nitheesh-Purnanand/cc_shreya/actions/runs/42552046162.
 
