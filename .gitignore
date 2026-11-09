@@ -1,0 +1,20 @@
+# credentials
+.env
+*.env
+!.env.example
+
+# model weights and training outputs (live in object storage / GitHub Release)
+models/
+training/out/
+*.safetensors
+*.bin
+*.pt
+*.pth
+
+# local data pulled from S3
+work/
+
+__pycache__/
+.venv/
+.pytest_cache/
+.DS_Store
