@@ -1,0 +1,82 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      model:
+        description: "Release tag to evaluate (model-v1, model-v2) or 'base' for the untrained Pythia-70M"
+        default: model-v1
+
+env:
+  MODEL: ${{ github.event.inputs.model || 'model-v1' }}
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install ruff==0.17.4
+      - run: ruff check .
+      - name: Secret scan (gitleaks)
+        run: |
+          curl -sSL https://github.com/gitleaks/gitleaks/releases/download/v8.24.2/gitleaks_8.24.2_linux_x64.tar.gz | tar -xz gitleaks
+          ./gitleaks detect --source . --redact --verbose --exit-code 1
+
+  unit-tests:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install pytest==9.2.0 httpx==0.28.1 fastapi==0.162.2 jsonschema==4.26.0 boto3==1.43.126 requests==2.34.2
+      - run: pytest -v tests
+
+  evaluate:
+    needs: unit-tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install --index-url https://download.pytorch.org/whl/cpu --extra-index-url https://pypi.org/simple torch==2.15.0 transformers==5.22.2
+      - name: Download model from the GitHub Release
+        if: env.MODEL != 'base'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release download "$MODEL" --dir model
+          cd model && sha256sum -c model.sha256
+      - name: Predict on validation.jsonl
+        run: |
+          mkdir -p results
+          if [ "$MODEL" = base ]; then SRC=EleutherAI/pythia-70m; else SRC=model; fi
+          python training/predict.py "$SRC" results/ci_predictions.jsonl
+      - name: Score
+        run: python tools/score.py results/ci_predictions.jsonl data/validation.jsonl --out results/ci_report.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: eval-results
+          path: results/
+
+  quality-gate:
+    needs: evaluate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: eval-results
+          path: results/
+      - name: JSON validity must be at least 95%
+        run: python tools/score.py results/ci_predictions.jsonl data/validation.jsonl --min-validity 95

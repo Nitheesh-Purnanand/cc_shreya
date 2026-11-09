@@ -1,0 +1,14 @@
+--index-url https://download.pytorch.org/whl/cpu
+--extra-index-url https://pypi.org/simple
+torch==2.15.0
+transformers==5.22.2
+pyyaml==6.0.3
+boto3==1.43.126
+requests==2.34.2
+fastapi==0.162.2
+uvicorn==0.54.0
+jsonschema==4.26.0
+httpx==0.28.1
+pytest==9.2.0
+ruff==0.17.4
+locust==2.47.0
