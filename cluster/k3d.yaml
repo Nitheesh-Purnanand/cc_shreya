@@ -1,0 +1,15 @@
+# k3d cluster for the CS3081 mini project: `make up` (or `k3d cluster create --config cluster/k3d.yaml`).
+apiVersion: k3d.io/v1alpha5
+kind: Simple
+metadata:
+  name: cs3081
+servers: 1
+agents: 0
+image: rancher/k3s:v1.36.4-k3s1
+ports:
+  # Traefik ingress -> http://localhost:8080 (the Locust host in the handout)
+  - port: 8080:80
+    nodeFilters: [loadbalancer]
+  # SeaweedFS S3 NodePort -> http://localhost:8333 (used from the laptop for uploads/training)
+  - port: 8333:30333
+    nodeFilters: [loadbalancer]

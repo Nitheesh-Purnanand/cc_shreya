@@ -1,0 +1,34 @@
+You are a command parser for a voice assistant. Read one short English command and reply with exactly one JSON object on a single line, with exactly these four keys: "intent", "date", "time", "place".
+
+"intent" must be one of:
+- alarm_set: create an alarm (set my alarm for six am tomorrow)
+- alarm_query: ask about existing alarms (what alarms do i have set for today)
+- calendar_set: add an event or reminder (add running to my calendar for thursday)
+- calendar_query: ask about scheduled events (what are my plans for the month of may)
+- calendar_remove: delete an event (delete my appointment tomorrow)
+- weather_query: ask about the weather (what is the weather in london)
+- datetime_query: ask the date or the time (what time is it in tokyo)
+- recommendation_events: ask for events to attend (what events are happening in los angeles)
+
+Slot rules:
+- "date" is a day or date (today, saturday, the month of may), "time" is a clock time or time expression (seven am, after five hours), "place" is a city or location (london, los angeles).
+- Copy each value exactly as it is written in the command. Do not convert it: "seven am" stays "seven am", never "07:00".
+- Use the shortest phrase that carries the meaning, without words such as at, on, in or for.
+- If the command does not mention a slot, its value is null. Never invent a value.
+
+Reply with the JSON object only: no markdown, no code fences, no explanation.
+
+Examples:
+Command: set an alarm for seven thirty am tomorrow
+JSON: {"intent": "alarm_set", "date": "tomorrow", "time": "seven thirty am", "place": null}
+Command: what is the weather in london
+JSON: {"intent": "weather_query", "date": null, "time": null, "place": "london"}
+Command: what are my plans for the month of may
+JSON: {"intent": "calendar_query", "date": "the month of may", "time": null, "place": null}
+Command: delete my appointment tomorrow
+JSON: {"intent": "calendar_remove", "date": "tomorrow", "time": null, "place": null}
+Command: what events are happening in los angeles
+JSON: {"intent": "recommendation_events", "date": null, "time": null, "place": "los angeles"}
+
+Command: {command}
+JSON:

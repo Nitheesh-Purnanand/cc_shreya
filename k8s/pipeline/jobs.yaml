@@ -1,0 +1,75 @@
+# Two teacher-labelling Jobs, run at the same time, each with its own SHARD_INDEX.
+# Needs: Secret s3-credentials and ConfigMap teacher-prompt in namespace pipeline (`make label`).
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: pipeline
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: teacher-shard-0
+  namespace: pipeline
+spec:
+  backoffLimit: 1
+  template:
+    metadata:
+      labels: {app: teacher-worker}
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: worker
+          image: cs3081-worker:v1
+          imagePullPolicy: IfNotPresent
+          env:
+            - {name: SHARD_INDEX, value: "0"}
+            - {name: SHARD_COUNT, value: "2"}
+            # LIMIT=N labels only the first N pool lines; 0 = all 3,000
+            - {name: LIMIT, value: "0"}
+            - {name: S3_ENDPOINT, value: "http://seaweedfs.data.svc.cluster.local:8333"}
+            - {name: OLLAMA_URL, value: "http://host.k3d.internal:11434"}
+            - {name: PROMPT_FILE, value: /prompt/teacher_prompt.txt}
+          envFrom:
+            - secretRef: {name: s3-credentials}
+          resources:
+            requests: {cpu: 50m, memory: 64Mi}
+            limits: {cpu: 500m, memory: 256Mi}
+          volumeMounts:
+            - {name: prompt, mountPath: /prompt, readOnly: true}
+      volumes:
+        - name: prompt
+          configMap: {name: teacher-prompt}
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: teacher-shard-1
+  namespace: pipeline
+spec:
+  backoffLimit: 1
+  template:
+    metadata:
+      labels: {app: teacher-worker}
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: worker
+          image: cs3081-worker:v1
+          imagePullPolicy: IfNotPresent
+          env:
+            - {name: SHARD_INDEX, value: "1"}
+            - {name: SHARD_COUNT, value: "2"}
+            - {name: LIMIT, value: "0"}
+            - {name: S3_ENDPOINT, value: "http://seaweedfs.data.svc.cluster.local:8333"}
+            - {name: OLLAMA_URL, value: "http://host.k3d.internal:11434"}
+            - {name: PROMPT_FILE, value: /prompt/teacher_prompt.txt}
+          envFrom:
+            - secretRef: {name: s3-credentials}
+          resources:
+            requests: {cpu: 50m, memory: 64Mi}
+            limits: {cpu: 500m, memory: 256Mi}
+          volumeMounts:
+            - {name: prompt, mountPath: /prompt, readOnly: true}
+      volumes:
+        - name: prompt
+          configMap: {name: teacher-prompt}

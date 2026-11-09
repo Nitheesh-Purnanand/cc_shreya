@@ -1,0 +1,13 @@
+shards: 2, records: 3000, distinct ids: 3000 (repeats: 0)
+| Count | Records |
+|---|---:|
+| Input records | 3000 |
+| (a) not valid JSON | 2 |
+| (b) keys not exactly intent/date/time/place | 0 |
+| (c) intent not one of the eight | 20 |
+| (d) slot not null and not in the command | 278 |
+| (e) duplicate commands | 47 |
+| Kept | 2653 |
+
+7c3571d83a2722ea72d18904ca23c3fe51ae7cd25238a5aaf6ea91437fdf8243  train.jsonl
+uploaded s3://datasets/v1/{train.jsonl,train.sha256,counts.json}

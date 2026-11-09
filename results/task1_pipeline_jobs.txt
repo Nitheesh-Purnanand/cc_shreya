@@ -1,0 +1,16 @@
+NAME                        STATUS     COMPLETIONS   DURATION   AGE     CONTAINERS   IMAGES             SELECTOR
+job.batch/teacher-shard-0   Complete   1/1           38m        4h31m   worker       cs3081-worker:v1   batch.kubernetes.io/controller-uid=fd8b4cdd-8b44-48cc-9d5f-16d6a0852eee
+job.batch/teacher-shard-1   Complete   1/1           38m        4h31m   worker       cs3081-worker:v1   batch.kubernetes.io/controller-uid=11a24adf-ed68-487c-a199-4d808d76258b
+
+NAME                        READY   STATUS      RESTARTS   AGE     IP           NODE                  NOMINATED NODE   READINESS GATES
+pod/teacher-shard-0-tvcxs   0/1     Completed   0          4h31m   10.42.0.12   k3d-cs3081-server-0   <none>           <none>
+pod/teacher-shard-1-d6d4k   0/1     Completed   0          4h31m   10.42.0.11   k3d-cs3081-server-0   <none>           <none>
+
+== teacher-shard-0 env
+[{"name":"SHARD_INDEX","value":"0"},{"name":"SHARD_COUNT","value":"2"},{"name":"LIMIT","value":"0"},{"name":"S3_ENDPOINT","value":"http://seaweedfs.data.svc.cluster.local:8333"},{"name":"OLLAMA_URL","value":"http://host.k3d.internal:11434"},{"name":"PROMPT_FILE","value":"/prompt/teacher_prompt.txt"}]
+shard 0/2: 1500 commands
+wrote s3://datasets/teacher/shard-0.jsonl (1500 lines)
+== teacher-shard-1 env
+[{"name":"SHARD_INDEX","value":"1"},{"name":"SHARD_COUNT","value":"2"},{"name":"LIMIT","value":"0"},{"name":"S3_ENDPOINT","value":"http://seaweedfs.data.svc.cluster.local:8333"},{"name":"OLLAMA_URL","value":"http://host.k3d.internal:11434"},{"name":"PROMPT_FILE","value":"/prompt/teacher_prompt.txt"}]
+shard 1/2: 1500 commands
+wrote s3://datasets/teacher/shard-1.jsonl (1500 lines)

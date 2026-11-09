@@ -1,0 +1,8 @@
+.git
+.venv
+.env
+training/out
+models
+work
+results
+**/__pycache__
