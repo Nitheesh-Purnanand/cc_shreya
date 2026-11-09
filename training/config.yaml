@@ -1,0 +1,15 @@
+# Student training config (Task 2). `make train` reads only this file.
+seed: 42
+learning_rate: 0.0003
+batch_size: 8
+epochs: 4
+max_length: 96            # tokens per example (prompt + teacher JSON + EOS)
+model_name: EleutherAI/pythia-70m
+train_file: data/v1/train.jsonl
+max_records: 1500         # handout limit: first 1,500 records of the cleaned dataset
+output_dir: training/out/v1
+loss_csv: training/loss.csv
+library_versions:
+  python: "3.11"
+  torch: "2.15.0"
+  transformers: "5.22.2"
